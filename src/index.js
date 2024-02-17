@@ -4,6 +4,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import connection from './database/mongo.js';
 import 'dotenv/config';
+import userRoutes from './routes/user.routes.js';
+import courseRoutes from './routes/courses.routes.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,9 +18,8 @@ app.use(cors());
 app.use(helmet());
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use('/users', userRoutes);
+app.use('/courses', courseRoutes);
 
 // Start server
 app.listen(port, async () => {

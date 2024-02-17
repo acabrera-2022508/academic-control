@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   courses: {
     type: [
       {
-        type: mongoose.Schema.Types.String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Course",
       },
     ],
@@ -32,5 +32,15 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+// userSchema.pre("save", function (next) {
+//   if (this.role !== "STUDENT") {
+//     this.role = "STUDENT";
+//   } else next();
+// });
+
+// userSchema.method.verifyRole = function (role) {
+//   return this.role === role;
+// };
 
 export default mongoose.model("User", userSchema);

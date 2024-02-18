@@ -1,10 +1,8 @@
 import express from 'express';
 import User from '../models/user.model.js';
 import Course from '../models/courses.model.js';
-import { hashPassword, comparePassword } from '../helpers/bcrypt.js';
-import { generateToken } from '../helpers/jwt.js';
+import { hashPassword } from '../helpers/bcrypt.js';
 import { isLoggedIn } from '../middlewares/isLoggedIn.js';
-import { isTeacher } from '../middlewares/isTeacher.js';
 import { limitCoursesAssign } from '../middlewares/limitCoursesAssign.js';
 
 const router = express.Router();
@@ -21,6 +19,16 @@ router.post('/register', async (req, res) => {
       courses: [],
       role: 'STUDENT',
     });
+
+    const users = await User.find({});
+
+    let userAlreadyExists = users.some((user) => user.username === username);
+
+    if (userAlreadyExists) {
+      return res
+        .status(400)
+        .json({ message: 'Username already exists, use another' });
+    }
 
     await user.save();
 
@@ -53,6 +61,11 @@ router.post(
 
       if (courseAlreadyAssigned)
         return res.status(400).json({ message: 'Course already assigned' });
+
+      const addStudentCourses = await Course.findOne({ name: courseName });
+      addStudentCourses.students.push(user._id);
+
+      await addStudentCourses.save();
 
       user.courses.push(course._id);
 

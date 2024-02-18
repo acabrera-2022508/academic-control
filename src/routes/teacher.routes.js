@@ -1,8 +1,7 @@
 import express from 'express';
 import User from '../models/user.model.js';
 import Course from '../models/courses.model.js';
-import { hashPassword, comparePassword } from '../helpers/bcrypt.js';
-import { generateToken } from '../helpers/jwt.js';
+import { hashPassword } from '../helpers/bcrypt.js';
 import { isLoggedIn } from '../middlewares/isLoggedIn.js';
 import { isTeacher } from '../middlewares/isTeacher.js';
 
@@ -20,6 +19,16 @@ router.post('/register', [isLoggedIn, isTeacher], async (req, res) => {
       courses: [],
       role: 'TEACHER',
     });
+
+    const users = await User.find({});
+
+    let userAlreadyExists = users.some((user) => user.username === username);
+
+    if (userAlreadyExists) {
+      return res
+        .status(400)
+        .json({ message: 'Username already exists, use another' });
+    }
 
     await user.save();
 
@@ -90,8 +99,6 @@ router.put(
         { name, description },
         { new: true },
       );
-
-      // const users = await User.find({ courses: courseToUpdate._id });
 
       return res.json({ message: 'Course updated' });
     } catch (error) {

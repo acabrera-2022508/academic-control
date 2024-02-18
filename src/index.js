@@ -8,6 +8,8 @@ import userRoutes from './routes/user.routes.js';
 import studentRoutes from './routes/student.routes.js';
 import teacherRoutes from './routes/teacher.routes.js';
 import coursesRoutes from './routes/courses.routes.js';
+import { hashPassword, comparePassword } from './helpers/bcrypt.js';
+import User from './models/user.model.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,5 +30,22 @@ app.use('/courses', coursesRoutes);
 // Start server
 app.listen(port, async () => {
   await connection();
+
+  // Create admin user
+  const admin = await User({
+    name: 'Josue',
+    lastName: 'Noj',
+    username: 'jnoj',
+    password: await hashPassword('admin'),
+    courses: [],
+    role: 'TEACHER',
+  });
+
+  const users = await User.find({});
+
+  if (users.length === 0) {
+    await admin.save();
+  }
+
   console.log(`Server running at port ${port}`);
 });

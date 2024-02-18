@@ -26,7 +26,38 @@ router.get('/profile', isLoggedIn, async (req, res) => {
   }
 });
 
-router.post('/login', isLoggedIn, async (req, res) => {
+router.put('/update', isLoggedIn, async (req, res) => {
+  try {
+    const { name, lastName, username, password } = req.body;
+
+    await User.findOneAndUpdate(
+      { _id: req.user._id },
+      {
+        name,
+        lastName,
+        username,
+        password: await hashPassword(password),
+      },
+      { new: true },
+    );
+
+    return res.json({ message: 'Profile updated' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.delete('/delete', isLoggedIn, async (req, res) => {
+  try {
+    await User.findOneAndDelete({ _id: req.user._id });
+
+    return res.json({ message: 'Profile deleted' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });

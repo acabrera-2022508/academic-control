@@ -7,6 +7,7 @@ import 'dotenv/config';
 import userRoutes from './routes/user.routes.js';
 import studentRoutes from './routes/student.routes.js';
 import teacherRoutes from './routes/teacher.routes.js';
+import coursesRoutes from './routes/courses.routes.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.use(helmet());
 app.use('/user', userRoutes);
 app.use('/student', studentRoutes);
 app.use('/teacher', teacherRoutes);
+app.use('/courses', coursesRoutes);
 
 // Start server
 app.listen(port, async () => {

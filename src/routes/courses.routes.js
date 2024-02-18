@@ -1,77 +1,54 @@
 import express from 'express';
 import Course from '../models/courses.model.js';
 import User from '../models/user.model.js';
+import { isTeacher } from '../middlewares/isTeacher.js';
+import { isLoggedIn } from '../middlewares/isLoggedIn.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.post('/create', [isLoggedIn, isTeacher], async (req, res) => {
   try {
-    const courses = await Course.find({})
-      .select('name description teacher -_id')
-      .populate({
-        path: 'teacher',
-        model: 'User',
-        select: 'name lastName role -_id',
-      });
+    const { name, description, teacher } = req.body;
 
-    return res.json(courses);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-});
+    const course = new Course({
+      name,
+      description,
+      teacher: await User.findOne({ username: teacher }).select('_id'),
+    });
 
-router.get('/detailed', async (req, res) => {
-  try {
-    const courses = await Course.find({})
-      .select('name description teacher students -_id')
-      .populate({
-        path: 'teacher',
-        model: 'User',
-        select: 'name lastName role -_id',
-      })
-      .populate({
-        path: 'students',
-        model: 'User',
-        select: 'name lastName role -_id',
-      });
+    const courses = await Course.find({});
 
-    return res.json(courses);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-});
-
-router.post('/add', async (req, res) => {
-  try {
-    const data = req.body;
-
-    const teacher = await User.findOne({ username: data.teacher });
-    const student = await User.findOne({ username: data.students });
-
-    if (!teacher || !student) {
-      return res.status(404).json({ message: 'Teacher or student not found' });
+    if (!course.teacher) {
+      return res.status(404).json({ message: 'Teacher not found' });
     }
 
-    data.teacher = teacher._id;
-    data.students = student._id;
-
-    const course = new Course(data);
-    
-    await User.findOneAndUpdate(
-      { _id: course.students },
-      { courses: course._id },
+    let courseAlreadyExists = courses.some(
+      (course) => course.name === name,
     );
 
-    await User.findOneAndUpdate(
-      { _id: course.teacher },
-      { courses: course._id },
-    );
+    if (courseAlreadyExists) {
+      return res.status(400).json({ message: 'Course already exists' });
+    }
 
     await course.save();
 
-    return res.send('Course added!');
+    return res.json({ message: 'Course created' });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get('/all', async (req, res) => {
+  try {
+    const courses = await Course.find({}).populate({
+      path: 'teacher',
+      model: 'User',
+      select: 'name lastName -_id',
+    });
+
+    return res.json(courses);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

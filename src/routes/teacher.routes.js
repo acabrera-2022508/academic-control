@@ -119,7 +119,41 @@ router.post(
   },
 );
 
-// router.post()
+router.post('/unassign/course/:studentUserName', async (req, res) => {
+  try {
+    let { studentUserName } = req.params;
+    let { courseName } = req.body;
+
+    let student = await User.findOne({ username: studentUserName });
+    let courseToUnassign = await Course.findOne({ name: courseName });
+
+    if (!student) {
+      return res.status(404).json({
+        message: "user does'nt exists",
+      });
+    }
+
+    if (!courseToUnassign)
+      return res.status(404).json({
+        message: "Course does'nt exists",
+      });
+
+    let indexCourseUnassign = student.courses.findIndex(
+      (course) => course._id.toString() === courseToUnassign._id.toString(),
+    );
+
+    student.courses.splice(indexCourseUnassign, 1);
+
+    await student.save();
+
+    return res.status(200).json({
+      message: `Course unassigned to ${student.name} succesfully`,
+      student: student
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
 
 router.put(
   '/update/course/:course',

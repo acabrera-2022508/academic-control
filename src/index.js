@@ -22,10 +22,33 @@ app.use(cors());
 app.use(helmet());
 
 // Routes
-app.use('/user', userRoutes);
-app.use('/student', studentRoutes);
-app.use('/teacher', teacherRoutes);
-app.use('/courses', coursesRoutes);
+let routes = [
+  {
+    path: '/user',
+    controller: userRoutes,
+  },
+  {
+    path: '/student',
+    controller: studentRoutes,
+  },
+  {
+    path: '/teacher',
+    controller: teacherRoutes,
+  },
+  {
+    path: '/courses',
+    controller: coursesRoutes,
+  },
+];
+
+routes.forEach((route) => {
+  app.use(route.path, route.controller);
+});
+
+// app.use('/user', userRoutes);
+// app.use('/student', studentRoutes);
+// app.use('/teacher', teacherRoutes);
+// app.use('/courses', coursesRoutes);
 
 // Start server
 app.listen(port, async () => {

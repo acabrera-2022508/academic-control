@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/acabrera-2022508/academic-control#readme",
   "dependencies": {
+    "@types/express": "^4.17.21",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.4",

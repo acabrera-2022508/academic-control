@@ -80,6 +80,47 @@ router.post('/assign/course', [isLoggedIn, isTeacher], async (req, res) => {
   }
 });
 
+router.post(
+  '/assign/course/:studentUserName',
+  [isLoggedIn, isTeacher],
+  async (req, res) => {
+    try {
+      let { studentUserName } = req.params;
+      let { courseName } = req.body;
+
+      let student = await User.findOne({ username: studentUserName });
+      let courseToAssign = await Course.findOne({ name: courseName });
+
+      if (!student) {
+        return res.status(404).json({
+          message: "user does'nt exists",
+        });
+      }
+
+      if (!courseToAssign)
+        return res.status(404).json({
+          message: "Course does'nt exists",
+        });
+
+      let courseAlreadyAssigned = student.courses.some(
+        (courseId) => courseId.toString() === courseToAssign._id.toString(),
+      );
+
+      if (courseAlreadyAssigned)
+        return res.status(400).json({ message: 'Course already assigned' });
+
+      student.courses.push(courseToAssign._id);
+      await student.save();
+
+      return res.status(200).json(student);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+);
+
+// router.post()
+
 router.put(
   '/update/course/:course',
   [isLoggedIn, isTeacher],

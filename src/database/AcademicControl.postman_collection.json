@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "45340533-0f10-4bc2-9909-945f5c1e6c1f",
 		"name": "AcademicControl",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13659864"
 	},
 	"item": [
@@ -29,7 +29,16 @@
 								}
 							]
 						},
-						"url": "{{base-url}}/user/login"
+						"url": {
+							"raw": "{{base-url}}/user/login",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
 					},
 					"response": []
 				},
@@ -44,7 +53,16 @@
 								"type": "text"
 							}
 						],
-						"url": "{{base-url}}/user/profile"
+						"url": {
+							"raw": "{{base-url}}/user/profile",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
 					},
 					"response": []
 				},
@@ -84,7 +102,16 @@
 								}
 							]
 						},
-						"url": "{{base-url}}/user/update"
+						"url": {
+							"raw": "{{base-url}}/user/update",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						}
 					},
 					"response": []
 				},
@@ -99,7 +126,16 @@
 								"type": "text"
 							}
 						],
-						"url": "{{base-url}}/user/delete"
+						"url": {
+							"raw": "{{base-url}}/user/delete",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"user",
+								"delete"
+							]
+						}
 					},
 					"response": []
 				}
@@ -109,26 +145,104 @@
 			"name": "student",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "register",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Ander",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Cabrera",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "acabrera",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/student/register",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"student",
+								"register"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request Copy",
+					"name": "assignCourse",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "courseName",
+									"value": "Fisica",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/student/assign/course",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"student",
+								"assign",
+								"course"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request Copy",
+					"name": "mycourses",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-user}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/student/mycourses",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"student",
+								"mycourses"
+							]
+						}
 					},
 					"response": []
 				}
@@ -138,42 +252,280 @@
 			"name": "teacher",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "register",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Ander",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Cabrera",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "acadmin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/teacher/register",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"teacher",
+								"register"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request Copy",
+					"name": "mycourses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base-url}}/teacher/mycourses",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"teacher",
+								"mycourses"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request Copy",
+					"name": "assignCourse",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "courseName",
+									"value": "Fisic",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/teacher/assign/course",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"teacher",
+								"assign",
+								"course"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request Copy 2",
+					"name": "updateCourse",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Math",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "All related with numbers",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/teacher/update/course/:course",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"teacher",
+								"update",
+								"course",
+								":course"
+							],
+							"variable": [
+								{
+									"key": "course",
+									"value": ""
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request Copy 2",
+					"name": "deleteCourse",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/teacher/delete/course/:course",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"teacher",
+								"delete",
+								"course",
+								":course"
+							],
+							"variable": [
+								{
+									"key": "course",
+									"value": "Fisic"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assignCourseStudent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "courseName",
+									"value": "Fisic",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/teacher/assign/course/:studentUserName",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"teacher",
+								"assign",
+								"course",
+								":studentUserName"
+							],
+							"variable": [
+								{
+									"key": "studentUserName",
+									"value": "acabrera"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unassignCourseToStudent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "courseName",
+									"value": "Fisic",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/teacher/unassign/course/:studentUserName",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"teacher",
+								"unassign",
+								"course",
+								":studentUserName"
+							],
+							"variable": [
+								{
+									"key": "studentUserName",
+									"value": "acabrera"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -183,18 +535,70 @@
 			"name": "courses",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "create",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Fisic",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Videogames",
+									"type": "text"
+								},
+								{
+									"key": "teacher",
+									"value": "jnoj",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/courses/create",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"courses",
+								"create"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request Copy",
+					"name": "coursesAll",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token-admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}/courses/all",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"courses",
+								"all"
+							]
+						}
 					},
 					"response": []
 				}
@@ -209,7 +613,9 @@
 				"exec": [
 					"pm.globals.set(\"base-url\", \"http://localhost:3000\");",
 					"",
-					"pm.globals.set(\"token-admin\", \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWQxNjhjZTlhNjhlZDk2OTI0MTYzMTkiLCJ1c2VybmFtZSI6Impub2oiLCJyb2xlIjoiVEVBQ0hFUiIsImlhdCI6MTcwODcxMDk1NywiZXhwIjoxNzExMzAyOTU3fQ.Knk_Jf3J25Ltpll_xVtmxHpPSRXVUs8dOOwmY9tdNbQ\");"
+					"pm.globals.set(\"token-admin\", \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWQ4ZWE5ZGJlM2VjZGIxYjdkMDg4OWEiLCJ1c2VybmFtZSI6Impub2oiLCJyb2xlIjoiVEVBQ0hFUiIsImlhdCI6MTcwODcxNTMxNiwiZXhwIjoxNzExMzA3MzE2fQ.rhDZsgzNhYR_IkWgddmlky3xreOGcf7a2C5IoEMOV6E\");",
+					"",
+					"pm.environment.set(\"token-user\", \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWQ4ZWJiOGJlM2VjZGIxYjdkMDg4OWQiLCJ1c2VybmFtZSI6ImFjYWJyZXJhIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3MDg3MTQ5NjEsImV4cCI6MTcxMTMwNjk2MX0.nnCSpl5IAd3lj7NNN4GlaUXhYUMD5qWjS29v9kSNs30\");"
 				]
 			}
 		},

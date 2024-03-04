@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "45340533-0f10-4bc2-9909-945f5c1e6c1f",
 		"name": "AcademicControl",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "13659864"
 	},
 	"item": [
@@ -29,16 +29,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base-url}}/user/login",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"user",
-								"login"
-							]
-						}
+						"url": "{{base-url}}/user/login"
 					},
 					"response": []
 				},
@@ -53,16 +44,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{base-url}}/user/profile",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"user",
-								"profile"
-							]
-						}
+						"url": "{{base-url}}/user/profile"
 					},
 					"response": []
 				},
@@ -102,16 +84,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base-url}}/user/update",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"user",
-								"update"
-							]
-						}
+						"url": "{{base-url}}/user/update"
 					},
 					"response": []
 				},
@@ -126,16 +99,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{base-url}}/user/delete",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"user",
-								"delete"
-							]
-						}
+						"url": "{{base-url}}/user/delete"
 					},
 					"response": []
 				}
@@ -174,16 +138,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base-url}}/student/register",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"student",
-								"register"
-							]
-						}
+						"url": "{{base-url}}/student/register"
 					},
 					"response": []
 				},
@@ -208,17 +163,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base-url}}/student/assign/course",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"student",
-								"assign",
-								"course"
-							]
-						}
+						"url": "{{base-url}}/student/assign/course"
 					},
 					"response": []
 				},
@@ -233,16 +178,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{base-url}}/student/mycourses",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"student",
-								"mycourses"
-							]
-						}
+						"url": "{{base-url}}/student/mycourses"
 					},
 					"response": []
 				}
@@ -287,16 +223,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base-url}}/teacher/register",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"teacher",
-								"register"
-							]
-						}
+						"url": "{{base-url}}/teacher/register"
 					},
 					"response": []
 				},
@@ -318,16 +245,7 @@
 							"mode": "urlencoded",
 							"urlencoded": []
 						},
-						"url": {
-							"raw": "{{base-url}}/teacher/mycourses",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"teacher",
-								"mycourses"
-							]
-						}
+						"url": "{{base-url}}/teacher/mycourses"
 					},
 					"response": []
 				},
@@ -352,17 +270,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base-url}}/teacher/assign/course",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"teacher",
-								"assign",
-								"course"
-							]
-						}
+						"url": "{{base-url}}/teacher/assign/course"
 					},
 					"response": []
 				},
@@ -565,16 +473,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base-url}}/courses/create",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"courses",
-								"create"
-							]
-						}
+						"url": "{{base-url}}/courses/create"
 					},
 					"response": []
 				},
@@ -589,16 +488,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{base-url}}/courses/all",
-							"host": [
-								"{{base-url}}"
-							],
-							"path": [
-								"courses",
-								"all"
-							]
-						}
+						"url": "{{base-url}}/courses/all"
 					},
 					"response": []
 				}
